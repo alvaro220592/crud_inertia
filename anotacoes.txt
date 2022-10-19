@@ -1,0 +1,39 @@
+criar projeto na versao 9
+
+criar banco de dados
+
+config .env para o bancod e dados
+
+composer require aravel/breeze --dev
+
+php artisan breeze:install vue
+
+php artisan migrate
+
+npm install && npm run dev
+
+php artisan make:model Topic -mc --resource
+
+editar migration de topic
+
+php artisan migrate
+
+npm run dev/watch (depende da versao do laravel)
+
+Em resources/js/Layouts, copie o navlink do dashboard e faça um de topics com a rota abaixo
+
+crie a rota de topics topics.index
+
+crie uma pasta chamada Topics dentro de Pages, com um Index.vue
+
+No TopicController, no retorno da view coloque render('Topics/Index')
+
+em https://tailwindcomponents.com/component/responsive-table-5, pegue o codigo da tabela e cole no index do topics
+
+importe o Link: import { Head, Link } from "@inertiajs/inertia-vue3";
+
+coloque um botão com Link apontado pra 'Topics/Create
+
+Faça a função create no controller q vai ter o inertia render 'Topic/Create'
+
+Parou no minuto 15
