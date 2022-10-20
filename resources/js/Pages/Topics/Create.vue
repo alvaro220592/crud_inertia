@@ -1,6 +1,15 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head, Link } from "@inertiajs/inertia-vue3";
+import { Head, Link, useForm } from "@inertiajs/inertia-vue3";
+
+const form = useForm({
+    name: null,
+    image: null,
+})
+
+function storeTopic() {
+    form.post('/topics')
+}
 
 </script>
 
@@ -25,10 +34,16 @@ import { Head, Link } from "@inertiajs/inertia-vue3";
                         <div class="flex p-2 m-2">
                             <Link href="/topics" class="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded">Back</Link>
                         </div>
-                            <div
-                                class="w-full mb-8 overflow-hidden rounded-lg shadow-lg"
-                            >
+                            <div class="w-1/2 mb-8 overflow-hidden rounded-lg ">
                             
+                                <form  method="post" enctype="multipart/form-data" @submit.prevent="storeTopic">
+                                    <input v-model="form.name" class="block w-full text-sm" id="text_input" type="text">
+
+                                    <!-- <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="small_size">Small file input</label> -->
+                                    <input type="file" @input="form.image = $event.target.files[0]" class="w-full mt-5" />
+
+                                    <button type="submit" class="mt-5 px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded">Salvar</button>
+                                </form>
                             </div>
                         </section>
                     </div>

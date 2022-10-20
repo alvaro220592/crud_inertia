@@ -2,6 +2,10 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head, Link } from "@inertiajs/inertia-vue3";
 
+const props = defineProps({
+    topics: Array
+})
+
 </script>
 
 <template>
@@ -22,83 +26,52 @@ import { Head, Link } from "@inertiajs/inertia-vue3";
 
                         <!-- component -->
                         <section class="container mx-auto p-6 font-mono">
-                        <div class="flex justify-end p-2 m-2">
-                            <Link href="/topics/create" class="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded">New</Link>
-                        </div>
-                            <div
-                                class="w-full mb-8 overflow-hidden rounded-lg shadow-lg"
-                            >
-                                <div class="w-full overflow-x-auto">
-                                    <table class="w-full">
-                                        <thead>
-                                            <tr
-                                                class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600"
-                                            >
-                                                <th class="px-4 py-3">Name</th>
-                                                <th class="px-4 py-3">Age</th>
-                                                <th class="px-4 py-3">
-                                                    Status
-                                                </th>
-                                                <th class="px-4 py-3">Date</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="bg-white">
-                                            <tr class="text-gray-700">
-                                                <td class="px-4 py-3 border">
-                                                    <div
-                                                        class="flex items-center text-sm"
-                                                    >
-                                                        <div
-                                                            class="relative w-8 h-8 mr-3 rounded-full md:block"
-                                                        >
-                                                            <img
-                                                                class="object-cover w-full h-full rounded-full"
-                                                                src="https://images.pexels.com/photos/5212324/pexels-photo-5212324.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"
-                                                                alt=""
-                                                                loading="lazy"
-                                                            />
-                                                            <div
-                                                                class="absolute inset-0 rounded-full shadow-inner"
-                                                                aria-hidden="true"
-                                                            ></div>
-                                                        </div>
-                                                        <div>
-                                                            <p
-                                                                class="font-semibold text-black"
-                                                            >
-                                                                Sufyan
-                                                            </p>
-                                                            <p
-                                                                class="text-xs text-gray-600"
-                                                            >
-                                                                Developer
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td
-                                                    class="px-4 py-3 text-ms font-semibold border"
-                                                >
-                                                    22
-                                                </td>
-                                                <td
-                                                    class="px-4 py-3 text-xs border"
-                                                >
-                                                    <span
-                                                        class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm"
-                                                    >
-                                                        Acceptable
-                                                    </span>
-                                                </td>
-                                                <td
-                                                    class="px-4 py-3 text-sm border"
-                                                >
-                                                    6/4/2000
-                                                </td>
-                                            </tr>
-                                            
-                                        </tbody>
-                                    </table>
+                            <div class="flex justify-end p-2 m-2">
+                                <!-- <Link href="/topics/create" class="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded">New</Link> -->
+                                <Link href="/topics/create" class="px-4 py-1 text-sm text-white bg-blue-400 rounded">Novo</Link>
+                            </div>
+                            <div class="container flex justify-center mx-auto">
+                                <div class="flex flex-col">
+                                    <div class="w-full">
+                                        <div class="border-b border-gray-200 shadow">
+                                            <table>
+                                                <thead class="bg-gray-50">
+                                                    <tr>
+                                                        <th class="px-6 py-2 text-xs text-gray-500">
+                                                            ID
+                                                        </th>
+                                                        <th class="px-6 py-2 text-xs text-gray-500">
+                                                            Name
+                                                        </th>
+                                                        <th class="px-6 py-2 text-xs text-gray-500">
+                                                            Image
+                                                        </th>
+                                                        <th class="px-6 py-2 text-xs text-gray-500">
+                                                            Created at
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="bg-white">
+                                                    <tr class="whitespace-nowrap" v-for="topic in topics" :key="topic.id">
+                                                        <td class="px-6 py-4 text-sm text-gray-500">
+                                                            {{ topic.id }}
+                                                        </td>
+                                                        <td class="px-6 py-4 text-sm text-gray-500">
+                                                            {{ topic.name }}
+                                                        </td>
+                                                        <td class="px-6 py-4">
+                                                            <div class="text-sm text-gray-900">
+                                                                <img :src="topic.image" class="w-12 h-12 rounded">
+                                                            </div>
+                                                        </td>
+                                                        <td class="px-6 py-4 text-sm text-gray-500">
+                                                            {{ topic.created_at }}
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </section>

@@ -37,3 +37,47 @@ coloque um botão com Link apontado pra 'Topics/Create
 Faça a função create no controller q vai ter o inertia render 'Topic/Create'
 
 Parou no minuto 15
+
+para um input file, vá no site do inertia e pesquise por file uploads
+    <input type="file" @input="form.avatar = $event.target.files[0]" />
+    import { useForm } from '@inertiajs/inertia-vue3'
+
+    const form = useForm({
+      name: null,
+      avatar: null,
+    })
+
+    function storeTopic() {
+      form.post('/topics') //este link vc muda como quiser
+    }
+
+    no input text, coloque: v-model="form.name"
+    no form, coloca @submit.prevent="storeTopic"
+
+    criar rota post pro store
+    defina os $fillable
+
+pra listar dinamicamente, a funcao index é (FUNCIONOU TAMBÉM APENAS COM 'topics' => Topic::all() no array de variáveis):
+return Inertia::render('Topics/Create', [
+    'topics' => Topic::all()->map(function($topic) {
+        return [
+            'id' => $topic->id,
+            'name' => $topic->name,
+            'image' => asset('storage/' . $topic->image)
+        ];
+    })
+]);
+
+aí tem q registrar o 'topics' lá no props do Index.vue
+ pra registrar o props:
+ const props = defineProps({
+    topics: Array
+})
+
+pra trazer a imagem na tabela, foi preciso fazer o link simbólico
+    php artisan storage:link
+    
+    e depois ir na model fazer uma concatenação, pois precisa citar a pasta storage antes da topics na hora de mostrar:
+    public function getImageAttribute($value){
+        return $value ? 'storage/' . $value : '';
+    }

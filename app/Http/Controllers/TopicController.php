@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Topic;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 
 class TopicController extends Controller
@@ -27,7 +28,16 @@ class TopicController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Topics/Create');
+        return Inertia::render('Topics/Create', [
+            // 'topics' => Topic::all()->map(function($topic) {
+            //     return [
+            //         'id' => $topic->id,
+            //         'name' => $topic->name,
+            //         'image' => asset('storage/' . $topic->image)
+            //     ];
+            // })
+            'topics' => Topic::all()
+        ]);
     }
 
     /**
@@ -36,9 +46,15 @@ class TopicController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        $image = Request::file('image')->store('topics', 'public');
+        Topic::create([
+            'name' => Request::input('name'),
+            'image' => $image
+        ]);
+
+        return Redirect::route('topics.index');
     }
 
     /**

@@ -31,5 +31,6 @@ Route::get('/dashboard', function () {
 
 Route::get('/topics', [TopicController::class, 'index'])->name('topics.index');
 Route::get('/topics/create', [TopicController::class, 'create'])->name('topics.create');
+Route::post('/topics', [TopicController::class, 'store'])->name('topics.store');
 
 require __DIR__.'/auth.php';
